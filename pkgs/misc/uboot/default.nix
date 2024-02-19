@@ -599,4 +599,28 @@ in {
     BL31 = "${armTrustedFirmwareRK3399}/bl31.elf";
     filesToInstall = [ "u-boot.itb" "idbloader.img"];
   };
+
+  ubootRock5B = let
+    rkbin = fetchFromGitHub {
+      owner = "rockchip-linux";
+      repo = "rkbin";
+      rev = "b4558da0860ca48bf1a571dd33ccba580b9abe23";
+      hash = "sha256-KUZQaQ+IZ0OynawlYGW99QGAOmOrGt2CZidI3NTxFw8";
+    };
+    version = "2024.01";
+  in (buildUBoot {
+    inherit version;
+    src = fetchurl {
+      url = "https://ftp.denx.de/pub/u-boot/u-boot-${version}.tar.bz2";
+      sha256 = "sha256-uZYR8e0je/NUG9yENLaMlqbgWWcGH5kkQ8swqr6+9bM=";
+    };
+    defconfig = "rock5b-rk3588_defconfig";
+    extraMeta.platforms = ["aarch64-linux"];
+    BL31 = "${rkbin}/bin/rk35/rk3588_bl31_v1.40.elf";
+    ROCKCHIP_TPL = "${rkbin}/bin/rk35/rk3588_ddr_lp4_2112MHz_lp5_2736MHz_v1.12.bin";
+    filesToInstall = [ "u-boot.itb" "idbloader.img" "u-boot-rockchip.bin" "u-boot-rockchip-spi.bin" ];
+    extraMakeFlags = ["DTC=./scripts/dtc/dtc"];
+  }).overrideAttrs {
+    patches = [];
+  };
 }

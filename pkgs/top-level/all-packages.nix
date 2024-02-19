@@ -28703,6 +28703,7 @@ with pkgs;
     ubootRock64
     ubootRock64v2
     ubootRockPi4
+    ubootRock5B
     ubootRockPro64
     ubootROCPCRK3399
     ubootSheevaplug
