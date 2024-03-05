@@ -58,6 +58,7 @@ mkDerivationWith python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/CadQuery/CQ-editor";
     license = licenses.asl20;
     maintainers = with maintainers; [ costrouc marcus7070 ];
+    broken = true;
   };
 
 }
