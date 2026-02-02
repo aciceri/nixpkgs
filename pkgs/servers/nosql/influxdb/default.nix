@@ -29,7 +29,7 @@ let
     # Don't fail on missing code documentation and allow dead_code/lifetime warnings
     postPatch = ''
       substituteInPlace flux-core/src/lib.rs \
-        --replace-fail "deny(warnings, missing_docs))]" "deny(warnings), allow(dead_code, mismatched_lifetime_syntaxes))]"
+        --replace-fail "deny(warnings, missing_docs))]" "deny(warnings), allow(dead_code, mismatched_lifetime_syntaxes, unused_assignments))]"
     '';
     sourceRoot = "${src.name}/libflux";
 
