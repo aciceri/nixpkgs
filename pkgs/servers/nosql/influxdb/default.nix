@@ -100,6 +100,7 @@ buildGoModule rec {
     license = lib.licenses.mit;
     homepage = "https://influxdata.com/";
     maintainers = with lib.maintainers; [
+      aciceri
       offline
       zimbatm
     ];
