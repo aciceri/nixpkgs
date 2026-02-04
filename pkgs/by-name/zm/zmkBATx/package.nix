@@ -8,6 +8,18 @@
   simpleBluez,
   simpleDBus,
 }:
+let
+  # zmkBATx is incompatible against the new ABI
+  simpleBluez' = simpleBluez.overrideAttrs (finalAttrs: {
+    version = "0.7.3";
+    src = fetchFromGitHub {
+      owner = "OpenBluetoothToolbox";
+      repo = "SimpleBLE";
+      rev = "v${finalAttrs.version}";
+      hash = "sha256-CPBdPnBeQ0c3VjSX0Op6nCHF3w0MdXGULbk1aavr+LM=";
+    };
+  });
+in
 stdenv.mkDerivation (finalAttrs: {
   pname = "zmkBATx";
 
@@ -30,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
     qt6.qtbase
     qt6.qtconnectivity
     dbus.lib
-    simpleBluez
+    simpleBluez'
     simpleDBus
   ];
 
